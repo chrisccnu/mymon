@@ -22,14 +22,14 @@ func sendData(data []*MetaData) ([]byte, error) {
 		log.Debugf("%s", m)
 	}
 
-	log.Debugf("lower to %s", strings.ToLower(string(js)))
+	log.Infof("send upper %s",string(js))
 	js = bytes.NewBufferString(strings.ToLower(string(js))).Bytes()
 
 	res, err := http.Post(cfg.FalconClient, "Content-Type: application/json", bytes.NewBuffer(js))
 	if err != nil {
 		return nil, err
 	}
-
+	log.Info("success11111")
 	defer res.Body.Close()
 	return ioutil.ReadAll(res.Body)
 }
