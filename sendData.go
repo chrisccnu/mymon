@@ -11,6 +11,10 @@ import (
 )
 
 func sendData(data []*MetaData) ([]byte, error) {
+	for index := range data{
+		data[index].Endpoint = strings.ToLower(data[index].Endpoint)
+		log.Infof("endpoint is lower %s",data[index].Endpoint)
+	}
 
 	js, err := json.Marshal(data)
 	if err != nil {
@@ -22,14 +26,10 @@ func sendData(data []*MetaData) ([]byte, error) {
 		log.Debugf("%s", m)
 	}
 
-	log.Infof("send upper %s",string(js))
-	js = bytes.NewBufferString(strings.ToLower(string(js))).Bytes()
-
 	res, err := http.Post(cfg.FalconClient, "Content-Type: application/json", bytes.NewBuffer(js))
 	if err != nil {
 		return nil, err
 	}
-	log.Info("success11111")
 	defer res.Body.Close()
 	return ioutil.ReadAll(res.Body)
 }
