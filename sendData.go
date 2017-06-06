@@ -12,8 +12,8 @@ import (
 
 func sendData(data []*MetaData) ([]byte, error) {
 	for index := range data{
-		data[index].Endpoint = strings.ToLower(data[index].Endpoint)
-		log.Infof("endpoint is lower %s",data[index].Endpoint)
+		data[index].Metric = strings.ToLower(data[index].Metric)
+		log.Infof("Metric is lower %s",data[index].Metric)
 	}
 
 	js, err := json.Marshal(data)
