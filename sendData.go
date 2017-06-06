@@ -22,6 +22,7 @@ func sendData(data []*MetaData) ([]byte, error) {
 		log.Debugf("%s", m)
 	}
 
+	log.Debugf("lower to %s", strings.ToLower(string(js)))
 	js = bytes.NewBufferString(strings.ToLower(string(js))).Bytes()
 
 	res, err := http.Post(cfg.FalconClient, "Content-Type: application/json", bytes.NewBuffer(js))
